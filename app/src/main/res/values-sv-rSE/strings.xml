@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_about">Om</string>
+    <string name="text_reverse">Omvänt</string>
+    <string name="hiragana_desc">Inkludera Hiragana symboler</string>
+    <string name="katakana_desc">Inkludera Katakana symboler</string>
+    <string name="kanji_desc">Inkludera Kanji symboler</string>
+    <string name="reverse_desc">Visa rōmaji/Skriv Kana</string>
+    <string name="text_sentence">Meningar</string>
+    <string name="sentence_desc">Inkludera meningar</string>
+    <string name="text_start">starta</string>
+    <string name="input_romanji_hint">Skriv rōmaji</string>
+    <string name="incorrect_answer_desc">"Rätt svar: "</string>
+    <string name="correct_answer_desc">Rätt!</string>
+    <string name="title_score">Resultat</string>
+    <string name="text_correct_answers">Rätta Svar</string>
+    <string name="text_time_per_answer">Tid/Svar</string>
+    <string name="text_done">Klar</string>
+    <string name="hiragana_desc_picker">Välj de hiragana du vill träna på</string>
+</resources>
