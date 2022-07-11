@@ -5,14 +5,18 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.25729166666666664" />
         <entry key="app/src/main/res/layout/activity_display_message.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/activity_hiragana_picker.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_hiragana_picker.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_hiragana_picker2.xml" value="0.23645833333333333" />
+        <entry key="app/src/main/res/layout/activity_hiragana_picker_old.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/layout/activity_katakana.xml" value="0.27421875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_main_oldtest.xml" value="0.273046875" />
         <entry key="app/src/main/res/layout/activity_practice.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_score.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_score2.xml" value="0.16354166666666667" />
+        <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/layout/test1.xml" value="0.27421875" />
+        <entry key="app/src/main/res/menu/menu_hiragana_picker_activity2.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.195" />
       </map>
     </option>
