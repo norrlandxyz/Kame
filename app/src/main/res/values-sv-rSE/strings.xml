@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="text_about">Om</string>
+    <string name="text_about">Öva japanska</string>
     <string name="text_reverse">Omvänt</string>
     <string name="hiragana_desc">Inkludera Hiragana symboler</string>
     <string name="katakana_desc">Inkludera Katakana symboler</string>

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Kame</string>
     <string name="app_name_emoji" translatable="false">Kame🐢</string>
-    <string name="text_about">About</string>
+    <string name="text_about">Practice Japanese</string>
     <string name="text_hiragana" translatable="false">Hiragana</string>
     <string name="text_katakana" translatable="false">Katakana</string>
     <string name="text_kanji" translatable="false">Kanji</string>
@@ -21,7 +21,6 @@
     <string name="text_time_per_answer">Time/Answer</string>
     <string name="text_done">Done</string>
     <string name="hiragana_desc_picker">Select the hiragana you wish to practice</string>
-    <string name="title_activity_hiragana_picker2">HiraganaPickerActivity2</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
