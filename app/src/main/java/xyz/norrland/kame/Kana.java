@@ -423,10 +423,13 @@ public class Kana extends Question {
                     this.correctAnswer = "wo";
                     break;
             }
-
+        }
+        else if (kana_type == "none") {
+            this.question = "bruh";
+            this.correctAnswer = "bruh";
         }
     }
-    //If handakuten or dakuten symbol should be used
+    //If handakuten or dakuten symbol should be used, currently not in use
     public Kana(String kana_type, String kana_sound, String dakuten_handakuten) {
         if (kana_type.equals("hiragana")) {
             if (dakuten_handakuten.equals("dakuten")) {

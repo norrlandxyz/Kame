@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     //public static final String EXTRA_MESSAGE = "xyz.norrland.kame.MESSAGE";
     //public static final String OPTION_HIRAGANA = "xyz.norrland.kame.HIRAGANA";
     public static final String QUIZ_LIST = "xyz.norrland.kame.QUIZ_LIST";
+    public static final String REVERSE = "xyz.norrland.kame.REVERSE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +39,21 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Question> quizList = new ArrayList<Question>();
 
         //Create new intent towards PracticeActivity
-        Intent intent = new Intent(this, HiraganaPickerActivity.class);
+        Intent intent = new Intent(this, PracticeActivity.class);
 
         //finds value of hiraganaBox
         CheckBox hiraganaBox = (CheckBox) findViewById(R.id.hiraganaBox);
 
         //finds value of katakanaBox
         CheckBox katakanaBox = (CheckBox) findViewById(R.id.katakanaBox);
+
+        //find reverseBox
+        Switch reverseBox = (Switch) findViewById(R.id.reverseBox);
+        boolean reverse = false;
+
+        if (reverseBox.isChecked()) {
+            reverse = true;
+        }
 
         //if hiraganabox is true, hiragana will be added to list
         if (hiraganaBox.isChecked()) {
@@ -165,11 +175,16 @@ public class MainActivity extends AppCompatActivity {
             quizList.add(new Kana("katakana", "n"));
         }
 
+        if (katakanaBox.isChecked() == false && hiraganaBox.isChecked() == false) {
+            quizList.add(new Kana("none", "none"));
+        }
+
         //randomize list
         quizList = randomizeQuiz(quizList);
 
         //Adds extra intents, and then starts PracticeActivity
         intent.putExtra(QUIZ_LIST, quizList);
+        intent.putExtra(REVERSE, reverse);
         startActivity(intent);
     }
 

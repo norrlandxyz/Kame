@@ -37,6 +37,9 @@ public class PracticeActivity extends AppCompatActivity {
         //gets intent once, instead of calling it multiple times
         Intent intent = getIntent();
 
+        //get reverse
+        boolean reverse = (boolean) intent.getSerializableExtra("xyz.norrland.kame.REVERSE");
+
         //list of questions
         ArrayList<Question> quizList = (ArrayList<Question>) intent.getSerializableExtra("xyz.norrland.kame.QUIZ_LIST");
 
@@ -49,7 +52,12 @@ public class PracticeActivity extends AppCompatActivity {
         Long startTime = System.currentTimeMillis();
 
         //displays first question
-        quizText.setText(quizList.get(currentQuestion).getQuestion());
+        if (reverse == false) {
+            quizText.setText(quizList.get(currentQuestion).getQuestion());
+        }
+        else {
+            quizText.setText(quizList.get(currentQuestion).getCorrectAnswer());
+        }
 
         EditText answerText = (EditText) findViewById(R.id.answerText);
 
@@ -63,13 +71,19 @@ public class PracticeActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String correctAnswer = quizList.get(currentQuestion).getCorrectAnswer();
+                String correctAnswer = null;
+                if (reverse == false) {
+                    correctAnswer = quizList.get(currentQuestion).getCorrectAnswer();
+                }
+                else {
+                    correctAnswer = quizList.get(currentQuestion).getQuestion();
+                }
                 if (s.length()>=correctAnswer.length() && !waitForReset) {
                     waitForReset = true;
 
                     String answerTextToString = answerText.getText().toString();
                     //answer is correct
-                    if (quizList.get(currentQuestion).isAnswerCorrect(answerTextToString)) {
+                    if (quizList.get(currentQuestion).isAnswerCorrect(answerTextToString, reverse)) {
                         numberOfCorrectAnswers++;
                         //changes color of answer to green
                         quizText.setTextColor(Color.parseColor("#00fa9a"));
@@ -84,7 +98,12 @@ public class PracticeActivity extends AppCompatActivity {
                         //shows "correct answer:" text
                         wrongAnswer.setText(R.string.incorrect_answer_desc);
                         //adds correct answer to end of text
-                        wrongAnswer.append(quizList.get(currentQuestion).getCorrectAnswer());
+                        if (reverse == false) {
+                            wrongAnswer.append(quizList.get(currentQuestion).getCorrectAnswer());
+                        }
+                        else {
+                            wrongAnswer.append(quizList.get(currentQuestion).getQuestion());
+                        }
                         //initializes vibrator
                         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         //vibrates for 500 ms
@@ -97,13 +116,18 @@ public class PracticeActivity extends AppCompatActivity {
                     nextQuestion.postDelayed(new Runnable() {
                         public void run() {
                             //if there are no more questions
-                            if (currentQuestion == quizList.toArray().length) {
+                            if (currentQuestion >= quizList.toArray().length-1) {
                                 //Needs to be in different method to run properly
                                 nextActivity(startTime, quizList, numberOfCorrectAnswers);
                             }
                             else {
                                 //displays new question
-                                quizText.setText(quizList.get(currentQuestion).getQuestion());
+                                if (reverse == false) {
+                                    quizText.setText(quizList.get(currentQuestion).getQuestion());
+                                }
+                                else {
+                                    quizText.setText(quizList.get(currentQuestion).getCorrectAnswer());
+                                }
                                 //change color back
                                 quizText.setTextColor(DefaultQuizTextColor);
                                 //reset text color

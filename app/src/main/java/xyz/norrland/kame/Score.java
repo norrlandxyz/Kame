@@ -24,4 +24,15 @@ public class Score<T extends Number, E extends Number> implements Serializable {
         return rightAnswers.doubleValue()/numberOfQuestions.doubleValue()*100;
     }
 
+    public double getTime () {
+        return time.doubleValue();
+    }
+
+    public int getNumberOfQuestions (){
+        return numberOfQuestions.intValue();
+    }
+
+    public int getRightAnswers() {
+        return rightAnswers.intValue();
+    }
 }

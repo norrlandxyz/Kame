@@ -19,8 +19,13 @@ public class Question implements Serializable {
     }
 
     //checks if answer is correct
-    public boolean isAnswerCorrect(String input) {
-        return input.equals(correctAnswer);
+    public boolean isAnswerCorrect(String input, Boolean reverse) {
+        if (reverse == false) {
+            return input.equals(correctAnswer);
+        }
+        else {
+            return input.equals(question);
+        }
     }
 
 }

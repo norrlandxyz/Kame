@@ -13,7 +13,7 @@
     <string name="text_sentence">Sentences</string>
     <string name="sentence_desc">Include sentences</string>
     <string name="text_start">start</string>
-    <string name="input_romanji_hint">Input rōmaji</string>
+    <string name="input_hint">Input</string>
     <string name="incorrect_answer_desc">"Correct answer: "</string>
     <string name="correct_answer_desc">Correct!</string>
     <string name="title_score">Score</string>
