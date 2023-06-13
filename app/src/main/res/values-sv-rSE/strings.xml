@@ -9,7 +9,10 @@
     <string name="text_sentence">Meningar</string>
     <string name="sentence_desc">Inkludera meningar</string>
     <string name="text_start">starta</string>
-    <string name="input_hint">Svar</string>
+    <string name="input_hint">Skriv</string>
+    <string name="input_hint_hiragana">Skriv hiragana</string>
+    <string name="input_hint_katakana">Skriv katakana</string>
+    <string name="input_hint_romanji">Skriv rōmaji</string>
     <string name="incorrect_answer_desc">"Rätt svar: "</string>
     <string name="correct_answer_desc">Rätt!</string>
     <string name="title_score">Resultat</string>

@@ -9,15 +9,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.Serializable;
-import java.time.Clock;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class PracticeActivity extends AppCompatActivity {
@@ -51,18 +48,48 @@ public class PracticeActivity extends AppCompatActivity {
         //gets current time
         Long startTime = System.currentTimeMillis();
 
-        //displays first question
-        if (reverse == false) {
-            quizText.setText(quizList.get(currentQuestion).getQuestion());
-        }
-        else {
-            quizText.setText(quizList.get(currentQuestion).getCorrectAnswer());
-        }
-
         EditText answerText = (EditText) findViewById(R.id.answerText);
 
         ColorStateList DefaultQuizTextColor = quizText.getTextColors();
 
+        //displays first question
+        //TODO: make this into a function, as it is usd in multiple places and I am tired of copy pasting
+        if (reverse == false) {
+            quizText.setText(quizList.get(currentQuestion).getQuestion());
+            //answer
+            answerText.setHint(R.string.input_hint_romanji);
+        }
+        else {
+            //answer should be in hiragana
+            // since this is reverse CorrectAnswer = the question and Question = the answer
+            Log.d("match", quizList.get(currentQuestion).getQuestion());
+            if (quizList.get(currentQuestion).getQuestion().matches("[\\u3040-\\u309f]+")) {
+                answerText.setHint(R.string.input_hint_hiragana);
+            }
+            //katakana
+            else {
+                answerText.setHint(R.string.input_hint_katakana);
+            }
+
+            quizText.setText(quizList.get(currentQuestion).getCorrectAnswer());
+        }
+
+
+        answerText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    // Your code logic for handling the Enter key press
+                    onEnterPressed(reverse, quizList, answerText, quizText, wrongAnswer, startTime, DefaultQuizTextColor);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+        /* Auto enter does not work well with all keyboards */
+        /*
         answerText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -149,7 +176,7 @@ public class PracticeActivity extends AppCompatActivity {
 
             }
         });
-
+     */
         //listen for keyboard enter
         /*quizText.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -186,5 +213,93 @@ public class PracticeActivity extends AppCompatActivity {
 
         //Create new intent towards ScoreActivity
         startActivity(nextIntent);
+    }
+
+    public void onEnterPressed(boolean reverse, ArrayList<Question> quizList, EditText answerText,
+                               TextView quizText, TextView wrongAnswer,
+                               Long startTime, ColorStateList DefaultQuizTextColor) {
+                /*String correctAnswer = null;
+                if (reverse == false) {
+                    correctAnswer = quizList.get(currentQuestion).getCorrectAnswer();
+                }
+                else {
+                    correctAnswer = quizList.get(currentQuestion).getQuestion();
+                }*/
+                /*if (!waitForReset) {
+                    waitForReset = true;*/
+
+                    String answerTextToString = answerText.getText().toString();
+                    //answer is correct
+                    if (quizList.get(currentQuestion).isAnswerCorrect(answerTextToString, reverse)) {
+                        numberOfCorrectAnswers++;
+                        //changes color of answer to green
+                        quizText.setTextColor(Color.parseColor("#00fa9a"));
+                        //shows "Correct!" under question
+                        Log.i("TAG", "correct");
+                        wrongAnswer.setText(R.string.correct_answer_desc);
+                    }
+                    //answer is false
+                    else {
+                        //changes color of answer to red
+                        quizText.setTextColor(Color.parseColor("#ff6347"));
+                        //shows "correct answer:" text
+                        wrongAnswer.setText(R.string.incorrect_answer_desc);
+                        //adds correct answer to end of text
+                        if (reverse == false) {
+                            wrongAnswer.append(quizList.get(currentQuestion).getCorrectAnswer());
+                        }
+                        else {
+                            wrongAnswer.append(quizList.get(currentQuestion).getQuestion());
+                        }
+                        //initializes vibrator
+                        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        //vibrates for 500 ms
+                        vibrator.vibrate(500);
+                    }
+                    currentQuestion++;
+                    //clear text
+
+                    Handler nextQuestion = new Handler();
+                    nextQuestion.postDelayed(new Runnable() {
+                        public void run() {
+                            //if there are no more questions
+                            if (currentQuestion >= quizList.toArray().length-1) {
+                                //Needs to be in different method to run properly
+                                nextActivity(startTime, quizList, numberOfCorrectAnswers);
+                            }
+                            else {
+                                //displays new question
+                                if (reverse == false) {
+                                    quizText.setText(quizList.get(currentQuestion).getQuestion());
+                                    //answer
+                                    answerText.setHint(R.string.input_hint_romanji);
+                                }
+                                else {
+                                    //answer should be in hiragana
+                                    // since this is reverse CorrectAnswer = the question and Question = the answer
+                                    Log.d("match", quizList.get(currentQuestion).getQuestion());
+                                    if (quizList.get(currentQuestion).getQuestion().matches("[\\u3040-\\u309f]+")) {
+                                        answerText.setHint(R.string.input_hint_hiragana);
+                                    }
+                                    //katakana
+                                    else {
+                                        answerText.setHint(R.string.input_hint_katakana);
+                                    }
+
+                                    quizText.setText(quizList.get(currentQuestion).getCorrectAnswer());
+                                }
+                                //change color back
+                                quizText.setTextColor(DefaultQuizTextColor);
+                                //reset text color
+                                answerText.setText("");
+                                //resets "correct answer: (answer)" text
+                                wrongAnswer.setText("");
+                                //reset boolean
+                                waitForReset = false;
+                            }
+                        }
+                    }, 700);
+
+
     }
 }
